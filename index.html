@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <form>
+            <input id="inp_peso" size="10" placeholder="peso (kg)">
+            <input id="inp_altura" size="10" placeholder="altura (m)">
+            <button type="button" id="btn_submit">Enviar</button>
+        </form>
+
+        <h1></h1>
+        <script>
+            $("document").ready(function(){
+                $("#btn_submit").click(function(){
+                    var peso = parseFloat($("#inp_peso").val())
+                    var altura = parseFloat($("#inp_altura").val())
+                    $.ajax({
+                        url: "https://infosenac.pythonanywhere.com/api",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({"peso": peso, "altura": altura})
+                    }).done(function(data){$("h1").html("IMC: " + data["resultado"])})
+                })
+            })
+        </script>
+    </body>
+</html>
